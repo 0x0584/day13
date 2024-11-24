@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   archid-.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: archid- <archid-tudent.1337.ma>            +#+  +:+       +#+        */
+/*   By: archid- <archid-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:49:26 by archid-           #+#    #+#             */
-/*   Updated: 2024/11/23 20:58:01 by archid-          ###   ########.fr       */
+/*   Updated: 2024/11/24 15:14:16 by archid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static bool ft_itos_base_setup_buffer(char *buff, size_t *size) {
   return true;
 }
 
-bool ft_itos_base(int val, int base, char ws, char *buff, size_t size) {
+static bool ft_itos_base(int val, int base, char ws, char *buff, size_t size) {
   assert(base == 2 || base == 8 || base == 10 || base == 16);
   ft_itos_base_setup_buffer(buff, &size);
   const int finished = ft_itos_base_encode(val, base, buff, &size);
@@ -60,21 +60,7 @@ bool ft_itos_base(int val, int base, char ws, char *buff, size_t size) {
   return true;
 }
 
-void ft_strncpy(char *s, const char *t, size_t n) {
-  assert(s);
-  assert(t);
-  assert(n);
-  while (n && *t) {
-    *s++ = *t++;
-    --n;
-  }
-  if (n) {
-    *s++ = '\0';
-    --n;
-  }
-}
-
-bool ft_strncmp(const char *s, const char *t, size_t n) {
+static bool ft_strncmp(const char *s, const char *t, size_t n) {
   assert(s);
   assert(t);
   while (n && *s && *t && *t == *s)
@@ -86,18 +72,14 @@ char *ft_rgb2hex(int r, int g, int b) {
   assert(r >= 0 && r <= 255);
   assert(g >= 0 && g <= 255);
   assert(b >= 0 && b <= 255);
-
   char *hex = malloc(8);
   if (!hex)
     return NULL;
-
   hex[0] = '#';
   hex[6] = '\0';
-
   ft_itos_base(r, 16, '0', hex + 1, 3 /* no neeed for NUL */);
   ft_itos_base(g, 16, '0', hex + 3, 3);
   ft_itos_base(b, 16, '0', hex + 5, 3);
-
   return hex;
 }
 
